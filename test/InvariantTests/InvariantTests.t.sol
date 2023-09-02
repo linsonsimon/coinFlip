@@ -30,6 +30,10 @@ contract COIN_FLIP_Invariant_Tests is StdInvariant, Test {
     }
 
     function invariant_basic_balance() public {
+        // IERC20(token).approve(address(cf),100*1e18);
+        //  for (uint256 i = 0; i < 100; i++) {
+        //     cf.flip(1*1e18,false);
+        // }
         assertGt( IERC20(token).balanceOf(address(cf)),200*1e18);
     }
 }
