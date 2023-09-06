@@ -19,12 +19,14 @@ contract Handler is CommonBase, StdCheats, StdUtils {
         coinflip=_coinflip;
     }
 
-    function flip(uint wager, bool isHeads) external{
+    function flip(uint wager, bool isHeads) public{
+        numCalls+=1;
         uint256 balance = IERC20(token).balanceOf(address(coinflip));
         wager = bound(wager,0,(balance * 1122448) / 100000000);
         IERC20(token).approve(address(coinflip),100*1e18);
 
-        numCalls+=1;
+        
+        vm.warp(block.timestamp);
         coinflip.flip(wager,isHeads);
     }
 

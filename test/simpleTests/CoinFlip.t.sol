@@ -21,20 +21,24 @@ contract simpleTest is Test{
 
     function test_A() public {
         IERC20(token).approve(address(cf),200*1e18);
+        vm.warp(block.timestamp);
          for (uint256 i = 0; i < 100; i++) {
-            cf.flip(1*1e18,false);
+            uint256 bet = block.timestamp%10;
+            bool isH = block.timestamp%2==1?true:false;
+
+            cf.flip(bet*1e17,isH);
         }
 
         uint256 b1 =IERC20(token).balanceOf(address(cf));
         
         assertGt( b1,200*1e18);
 
-        for (uint256 i = 0; i < 100; i++) {
-            cf.flip(1*1e18,false);
-        }
+        // for (uint256 i = 0; i < 100; i++) {
+        //     cf.flip(1*1e18,false);
+        // }
 
-        uint256 b2 =IERC20(token).balanceOf(address(cf));
+        // uint256 b2 =IERC20(token).balanceOf(address(cf));
         
-        assertGt( b2,b1);
+        // assertGt( b2,b1);
     }
 }

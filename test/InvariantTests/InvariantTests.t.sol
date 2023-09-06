@@ -25,6 +25,7 @@ contract COIN_FLIP_Invariant_Tests is StdInvariant, Test {
         // Send 100 ETH to handler
         deal(address(this), 100 * 1e18);
         deal(address(cf), 100 * 1e18);
+        IERC20(token).approve(address(cf),100*1e18);
         // Set fuzzer to only call the coinFlip
         targetContract(address(cf));
     }
